@@ -76,5 +76,5 @@ document.write(firstName || lastName || nickName || "익명"); // 바이올렛
 document.write(firstName || "<br>익명");
 
 // 단락 평가
-true || alert("not printed");
-false || alert("printed");
+true || alert("not printed"); // OR연산자는 첫번째 truthy를 찾으면 뒤에 연산을 하지않음 -> alert되지않음
+false || alert("printed"); // printed
