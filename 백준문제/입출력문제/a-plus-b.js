@@ -24,3 +24,23 @@ console.log(Number(inputData[0]) + Number(inputData[1]));
 const inputData2 = fs.readFileSync(0, 'utf-8').split(' ');
 
 //solution 2) readline 모듈 사용하기 (fs모듈이 속도가 더 빠르다함 런타임오류를 막기위해 fs사용)
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+//여러 줄 입력이 들어오는 경우 빈배열에 담아서 하나씩 처리
+//당연히 형변환도 해줘야 함
+const input = [];
+
+rl.on('line', (line) => {
+  input.push(+line);
+  rl.close();
+});
+
+rl.on('close', () => {
+  /*입력이 끝나고 실행할 코드*/
+  process.exit();
+});
