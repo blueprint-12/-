@@ -83,3 +83,96 @@
     return num * factorial(num); //잘못된 값을 반환 num * factorial(num)은 중단점에 도달할 수 없다.
   }
 }
+
+// Helper Method Recursion(헬퍼 메소드 재귀)
+/*
+ */
+{
+  /*만약 아래의 함수에서 홀수를 담는 빈배열을 만들고 
+  해당 함수를 재귀함수로 사용한다면 이 다음에 뭘 입력하든 간에 
+  함수가 호출될 때마다 result 가 리셋되면서 배열이 텅비게 된다. 
+  그렇다면 데이터를 수집하기 위해 어떻게 해야할까? 
+  솔루션1. result 배열을 함수 외부에 정의하는 것 (그리고 함수 내부에서 result.push)
+  솔루션2. 위처럼 뜬금없는 위치에 result 를 배치하는 대신, 헬퍼 메소드 재귀를 사용하기
+
+  */
+  //솔루션1
+  const result = [];
+  function collectOdds(nums) {
+    result.push(nums);
+  }
+}
+
+{
+  //헬퍼 메소드 재귀- 일종의 결과를 컴파일할 때 흔히 사용되는 패턴
+  //결과는 주로 배열이나 배열과 비슷한 다른 형태의 데이터 구조이다.
+  //헬퍼 메소드 재귀는 그냥 재귀적이지 않은 외부 함수가 재귀적인 내부 함수(inner function)을 호출하는 패턴을 말한다.
+  //솔루션2
+  function collectOddValues(arr) {
+    let result = [];
+    function helper(helperInput) {
+      //아래는 base case(재귀함수니까 base case가 있어야 겠죠.)
+      // 길이가 0이면 반환
+      if (helperInput.length === 0) {
+        return;
+      }
+
+      // reculsive case -홀수라면 result 배열에 0번째 input값을 넣어준다.
+      if (helperInput[0] % 2 !== 0) {
+        result.push(helperInput[0]);
+      }
+      //Array.prototype.slice()
+      // 어떤 배열의 begin부터 end까지(end미포함)에 대한 얕은 복사본을 새로운 배열 객체로 반환
+      // 원본배열은 바뀌지 않음
+      // begin과 end는 optional이고 index를 나타내며 end를 생략할 경우 arr.length까지 추출한다.
+      helper(helperInput.slice(1)); // 즉, 0번째 index를 제외한 1부터 끝까지의 배열 복사본을 다시 재호출
+      // 배열이 텅 빌때까지 계속해서 줄여나간다.
+    }
+
+    helper(arr); //위에 정의된 헬퍼함수를 배열을 사용해 호출
+
+    return result; //정의한 result를 반환한다.
+  }
+  const result = collectOddValues([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  console.log(result);
+}
+
+{
+  // Pure Recursion (순수 재귀)
+  //이전의 헬퍼 메소드 재귀와 한 세트로 보셈
+  //collectOddValues 함수를 순수 재귀를 통해 만들수도 있다.
+  //이전의 솔루션들이 유일한 방법은 아니라는 소리
+  //순수 재귀의 경우 필요한 모든 코드가 함수 자체에 포함되며 재귀적이다.
+  //이전의 헬퍼 메소드 재귀처럼 외부 데이터 구조를 사용하지 않음(e.g. let result = [])
+
+  function collectOddValues(arr) {
+    let newArr = []; //재귀함수로 해당 함수가 쓰이면 계속 빈배열이 된다고 했음
+    // 그렇기 때문에 해당 코드도 다시 불러질 때마다 빈배열이 됨
+    //차이점: 빈배열이돼도 상관없다 ->우리가 실제로 하는 작업은 계산이 완료됐을 때
+    // 모든 배열을 하나의 배열로 합쳐서(concatenate) 반환하는 것
+    if (arr.length === 0) {
+      return;
+    }
+    if (arr[0] % 2 !== 0) {
+      newArr.push(arr[0]);
+    }
+    newArr = newArr.concat(collectOddValues(arr.slice(1)));
+    return newArr;
+  }
+  console.log(
+    'this is pure recursion result!' + collectOddValues([1, 2, 3, 4, 5]),
+  );
+  /* 
+  코드 작동 설명
+  collectOddValues([1,2,3,4,5]); 를 호출한다면
+  [1].concat(collectOddValues([2,3,4,5])) 이런 모습이 된다. 
+  */
+  // Pure Recursion Tips
+  //배열의 경우 헬퍼 메소드 없이 순수 재귀 솔루션을 작성하는 경우에,
+  //배열을 복사하는 slice, spread 연산자(operator), concat 같은 메소드를 사용할 수 있습니다.
+  //그러면 배열을 변경할 필요가 없음,  일종의 결과를 축적할 수 있다 .
+
+  //주의: 문자열을 변경할 수가 없다. 그래서 slice, substr, substring 등의 메소드를 사용하여
+  // 문자열의 카피를 만들어야 한다.
+  // 객체의 경우 Object.assign이나 spread 연산자를 사용하는 것이 유용하다.
+}
