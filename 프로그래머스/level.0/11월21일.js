@@ -94,3 +94,72 @@
     return answer;
   }
 }
+//✅문자 반복 출력하기
+// 문제 설명
+// 문자열 my_string과 정수 n이 매개변수로 주어질 때, my_string에 들어있는 각 문자를 n만큼 반복한 문자열을 return 하도록 solution 함수를 완성해보세요.
+// 제한 사항
+// 2 ≤ my_string 길이 ≤ 5
+// 2 ≤ n ≤ 10
+// "my_string"은 영어 대소문자로 이루어져 있습니다.
+{
+  function solution(my_string, n) {
+    let answer = '';
+    for (let i = 0; i < my_string.length; i++) {
+      answer += my_string[i].repeat(n);
+    }
+    return answer;
+  }
+}
+//다른 사람 solution
+//map과 repeat을 생각안한 건 아니지만 join을 굳이쓰기 싫어서 그냥 했음
+//놓친게 있다면 구조분해를 통해서 string값을 쪼갤 생각을 못했다는 것
+
+{
+  function solution(my_string, n) {
+    var answer = [...my_string].map((v) => v.repeat(n)).join('');
+    console.log(answer);
+    return answer;
+  }
+}
+//다른 사람 solution 2
+// reduce는 항상 봐도 새롭군.. 초기값관련 다시 보기
+{
+  function solution(my_string, n) {
+    return my_string.split('').reduce((acc, cur) => acc + cur.repeat(n), '');
+  }
+}
+
+//✅ 특정 문자 제거하기
+//문제 설명
+//문자열 my_string과 문자 letter이 매개변수로 주어집니다. my_string에서 letter를 제거한 문자열을 return하도록 solution 함수를 완성해주세요.
+// 제한사항
+// 1 ≤ my_string의 길이 ≤ 100
+// letter은 길이가 1인 영문자입니다.
+// my_string과 letter은 알파벳 대소문자로 이루어져 있습니다.
+// 대문자와 소문자를 구분합니다.
+
+//특정문자 모두 -> replaceAll(), *대소문자 구별함
+{
+  function solution(my_string, letter) {
+    return my_string.replaceAll(letter, '');
+  }
+}
+
+//다른 사람 solution
+// split 에 인자로 넘겨지는애는 separator, limit
+// separator은 문자열 또는 분할이 발생해야하는 위치를 설명하는 패턴, 일반적인 예는 정규 표현식?
+{
+  function solution(my_string, letter) {
+    const answer = my_string.split(letter).join('');
+    return answer;
+  }
+}
+
+//다른 사람 solution 2
+// 정규표현식 객체 생성
+{
+  function solution(my_string, letter) {
+    let reg = new RegExp(letter, 'g');
+    return my_string.replace(reg, '');
+  }
+}
