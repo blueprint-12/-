@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\프로그래머스\\level.0\\연속된수의합.js"
+      "program": "${workspaceFolder}\\${relativeFile}"
     }
   ]
 }
