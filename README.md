@@ -3,7 +3,7 @@
 <img src="./자료구조.jpg" width="450px" height="300px" alt="algo"></img><br/>
 
 📌[폴더 설명](#폴더-설명)  
-📌[사용 extension](#사용-extension-for-vscode)
+📌[사용 extension](#추천-extension-for-vscode)
 
 ## 폴더 설명
 
