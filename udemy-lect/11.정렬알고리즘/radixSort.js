@@ -81,7 +81,7 @@
         let digit = getDigit(nums[i], k); //digit이 3이면 3번 버켓에 넣어줘야한다.
         digitBuckets[digit].push(nums[i]);
       }
-      console.log('digitBuckts :', digitBuckets);
+      console.log('digitBuckets :', digitBuckets);
       nums = [].concat(...digitBuckets);
       console.log('nums :', nums);
     }
