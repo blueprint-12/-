@@ -112,6 +112,49 @@ class SinglyLinkedList {
     }
     return current;
   }
+
+  set(index, val) {
+    // 1. get함수 활용해서 index에 해당하는 origin Node 가져오기
+    let foundNode = this.get(index);
+    if (foundNode) {
+      foundNode.val = val;
+      return true;
+    }
+    // 리스트에서 해당 node를 발견하지 못했다면 무조건 false를 리턴
+    return false;
+  }
+
+  insert(index, val) {
+    if (index < 0 || index > this.length) return false;
+    // push와 unshift는 this(리스트객체)를 반환하고 있으므로 !!를 통해서 boolean 값으로 반환해준다.
+    if (index === this.length) return !!this.push(val);
+    if (index === 0) return !!this.unshift(val);
+
+    let newNode = new Node(val);
+    let prev = this.get(index - 1);
+    let temp = prev.next;
+    prev.next = newNode;
+    newNode.next = temp;
+    this.length++;
+    return true;
+  }
+
+  remove(index) {
+    // undefined, null, false 등 원하는 falsy값을 반환하면 된다.
+    if (index < 0 || index >= this.length) return undefined;
+    if (index === 0) return this.shift();
+    //만일 마지막 요소라면 this.pop();
+    if (index === this.length - 1) return this.pop();
+
+    //여기부터는 index가 중간에 위치하는 경우
+    //1. 제거하려는 노드의 이전 노드 get
+    let prev = this.get(index - 1);
+    //2.
+    let removed = prev.next;
+    prev.next = removed.next;
+    this.length--;
+    return removed;
+  }
 }
 
 let list = new SinglyLinkedList();
@@ -121,9 +164,9 @@ list.push('a master piece');
 list.push('just kidding');
 list.push('PICK ME!🌝'); // 3 -> 얘를 get해보자.
 
-
-
-console.log('get', list.get(3));
+//6은 없는 node
+console.log(list.insert(0, 'I am added! at first'));
+console.log('list.get', list.get(5));
 
 // TODO: Popping 구현하기
 // push() 보다 까다로운 점은 마지막 노드를 제거해야 한다는 것이다.
@@ -144,3 +187,22 @@ console.log('get', list.get(3));
 
 // TODO: Get 구현하기
 // * 인덱스 혹은 위치를 의미하는 숫자를 인자로 받아서 주어진 위치에 있는 노드를 반환하는 메소드
+
+// TODO: Set 구현하기
+// * 위치 혹은 인덱스와 해당 인덱스에 위치한 노드를 업데이트할 값 등 두 개의 인자를 받는다.
+// ? value 와 index 인자로 받음 -> set은 어떤 index의 값을 modify해주는 메서드이므로
+// ! get을 활용해서 해당 index node의 값을 가져온다.
+
+// TODO: Insert(삽입) 구현
+// * set처럼 index와 value를 인자로 갖는다.
+// ? 차이점은 이미 존재하는 노드를 업데이트하는 대신 'insert()'는 주어진 노드를 그곳이 어디던 주어진 위치에 새롭게 삽입한다.
+
+// insert pseudocode
+// 만약 index가 0보다 작거나 배열의 길이보다 크다면 return false -> 길이랑 같을 경우(이상)는 push 를 써서 뒤에 추가해주면 된다.
+// 동시에 index가 0일 경우(node가 1개, head와 tail이 같음)는 unshift를 써서 맨앞에 넣어주면 된다.
+// * insert의 로직이 필요한 부분은 node와 node사이에 삽입을 할 경우
+// ? 우선, index에 해당하는 node의 바로 전에 위치하는 prev node를 알아야 한다. ->this.get(index -1); 그리고 prev node의 next가 새롭게 생성된 후 삽입되는 node를 가리키도록 만든다.
+
+// TIP: 메서드가 true 혹은 false를 반환하도록 강제하는 것이 좋다.
+
+// TODO: Remove 구현
