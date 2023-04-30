@@ -6,7 +6,7 @@
 // Number.toFixed() : 소수점 이하 숫자 버리고 정수만 리턴
 // Math.trunc() 소수 부분을 모두 버리고 정수만 리턴
 {
-  function solution(flo) {
+  function solution0(flo) {
     return Math.trunc(flo);
   }
 }
