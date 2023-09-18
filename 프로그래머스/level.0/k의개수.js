@@ -21,6 +21,8 @@ i	j	k	result
 3	10	2	0
 */
 
+//! split을 활용한 여집합 문제
+
 {
   function solution(i, j, k) {
     let count = 0;
