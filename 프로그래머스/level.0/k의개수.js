@@ -23,6 +23,9 @@ i	j	k	result
 
 //! split을 활용한 여집합 문제
 
+//내 코드 안좋은 점: 쓸데없는 변수 생성 numbers 배열 필요x
+// 형변환 필요 x
+
 {
   function solution(i, j, k) {
     let count = 0;
